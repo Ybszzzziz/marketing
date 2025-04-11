@@ -25,7 +25,9 @@ object DimApp extends BaseApp {
     
     
     override def handle(KafkaDStream: InputDStream[ConsumerRecord[String, String]], ssc: StreamingContext, sc: SparkContext): Unit = {
+        
         //TODO 首次需要bootstrap配置表
+        
         // 1. 过滤数据，保证格式正确，来源正确
         val etlStream: DStream[ConsumerRecord[String, String]] = etl(KafkaDStream)
         val map: mutable.Map[String, TableProcessDim] = mutable.Map()
@@ -36,8 +38,6 @@ object DimApp extends BaseApp {
         
         // 3.写入Hbase
         sinkToHbase(etlStream, broadcastMap)
-        
-        
     }
     
     
