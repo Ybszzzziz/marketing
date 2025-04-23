@@ -11,6 +11,7 @@
     <modules>
         <module>realtime-common</module>
         <module>realtime-dim</module>
+        <module>realtime-dwd</module>
     </modules>
 
     <properties>
@@ -132,6 +133,16 @@
             <groupId>org.apache.hbase.connectors.spark</groupId>
             <artifactId>hbase-spark</artifactId>
             <version>1.0.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.hbase</groupId>
+            <artifactId>hbase-mapreduce</artifactId>
+            <version>2.4.11</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.spark</groupId>
+            <artifactId>spark-sql-kafka-0-10_2.12</artifactId>
+            <version>${spark.version}</version>
         </dependency>
         <!-- junit -->
         <dependency>

@@ -33,14 +33,15 @@ object hbase {
                         // 获取对应的配置表
                         val option: Option[TableProcessDim] = map.get(table.toString)
                         val tableProcessDim: TableProcessDim = option.get
-                        
+                        val list: util.List[String] = util.Arrays.asList(tableProcessDim.getSinkColumns.split(","): _*)
                         // 筛选字段
-                        data.keySet().removeIf(key => util.Arrays.asList(tableProcessDim.getSinkColumns.split(",")).contains(key))
+                        data.keySet().removeIf(key => !list.contains(key))
                         op match {
                             case "delete" => HbaseUtil.deleteCells(conn, Constant.HBASE_NAMESPACE, tableProcessDim.getSinkTable, data.get(tableProcessDim.getSinkRowKey).toString)
                             case _ => HbaseUtil.putCells(conn, Constant.HBASE_NAMESPACE, tableProcessDim.getSinkTable,
                                 data.get(tableProcessDim.getSinkRowKey).toString, tableProcessDim.getSinkFamily, data)
                         }
+                        println("写入" + table.toString + "成功")
                     }
                 })
                 conn.close()

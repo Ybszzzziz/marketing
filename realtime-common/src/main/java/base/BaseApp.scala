@@ -25,7 +25,6 @@ trait BaseApp {
         val KafkaDStream: InputDStream[ConsumerRecord[String, String]] =
             KafkaUtil.getKafkaDStream(topic, ssc, groupId)
         val sc: SparkContext = ssc.sparkContext
-        val sparkSession: SparkSession = SparkSession.builder().config(conf).getOrCreate()
         
         
         handle(KafkaDStream, ssc, sc)
