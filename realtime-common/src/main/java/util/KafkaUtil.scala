@@ -2,6 +2,7 @@ package util
 import org.apache.kafka.clients.consumer.{ConsumerConfig, ConsumerRecord}
 import org.apache.kafka.clients.producer.{KafkaProducer, ProducerConfig, ProducerRecord}
 import org.apache.kafka.common.TopicPartition
+import org.apache.spark.sql.{DataFrame, SparkSession}
 import org.apache.spark.streaming.StreamingContext
 import org.apache.spark.streaming.dstream.InputDStream
 import org.apache.spark.streaming.kafka010.{ConsumerStrategies, KafkaUtils, LocationStrategies}
@@ -43,6 +44,17 @@ object KafkaUtil {
                     consumerConfig)
             )
         dStream
+    }
+    
+    def getKafkaDFStream(spark: SparkSession, topic: String, groupId: String): DataFrame = {
+        spark.readStream
+                .format("kafka")
+                .option("kafka.bootstrap.servers", PropertiesUtil("kafka.bootstrap.servers"))
+                .option("group.id", groupId)
+                .option("subscribe", topic)
+                .option("startingOffsets", "latest")
+                .option("enable.auto.commit", "false")
+                .load()
     }
     
     /**

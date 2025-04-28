@@ -30,6 +30,9 @@ public class Constant {
 
     public static final String MARKETING_CAMPAIGN_DEFINITION = "dim_marketing_campaign_definition";
     public static final String CUSTOMER_LABEL = "dim_customer_label";
+    public static final String CUSTOMER_INFO = "dim_customer_info";
+    public static final String BASE_DIC = "dim_base_dic";
 
+    public static final String BASE_HDFS_LOCATION = "hdfs://hadoop102:8020";
     public static final String TOPIC_DWD_TRIGGER_EVENT = "dwd_trigger_event";
 }

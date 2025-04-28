@@ -33,7 +33,7 @@ trait BaseSQL {
         val conf: Configuration = HBaseConfiguration.create()
         conf.set("hbase.zookeeper.quorum", Constant.HBASE_ZOOKEEPER_QUORUM)
         
-        handle(spark, conf)
+        handle(spark, conf, topic, groupId)
         
 //        conf.set(TableInputFormat.INPUT_TABLE, "marketing:dim_marketing_campaign_definition")
 //        conf.set(TableInputFormat.SCAN_COLUMNS, "info:create_time") // 指定列
@@ -59,5 +59,5 @@ trait BaseSQL {
 //        val df: DataFrame = spark.createDataFrame(rdd, schema)
 //        df.createOrReplaceTempView("marketing_campaign_definition")
     }
-    def handle(spark: SparkSession, conf: Configuration)
+    def handle(spark: SparkSession, conf: Configuration, topic: String, groupId: String)
 }
